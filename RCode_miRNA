@@ -1,0 +1,79 @@
+################################################################################
+# ----------------------------Programación Científica -------------------------#
+# Grupo No. 5, Integrantes:
+# Deivis Martínez, Carlos Pérez &  Freddy Rodríguez
+
+################################################################################
+# -----------------1. Importar las librerias necesarias -----------------------#
+library(DESeq2)
+library(ggplot2)
+library(pheatmap)
+
+################################################################################
+# ---------------------- 2. Cargar datos de entrada ---------------------------#
+# Matriz de conteos (filas = miRNA, columnas = muestras)
+counts <- read.csv("counts_miRNA.csv", row.names = 1)
+
+# Metadatos (condición experimental)
+coldata <- read.csv("metadata.csv", row.names = 1)
+
+# Asegurar que el orden coincide
+counts <- counts[, rownames(coldata)]
+
+print(paste("Total de miRNAs:", nrow(counts)))
+print(paste("Total de muestras:", ncol(counts)))
+
+################################################################################
+# ---------------------- 3. Crear objeto DESeq2 -------------------------------#
+dds <- DESeqDataSetFromMatrix(
+  countData = counts,
+  colData = coldata,
+  design = ~ condition
+)
+
+# Filtrar baja expresión
+dds <- dds[rowSums(counts(dds)) > 10, ]
+
+################################################################################
+# ---------------------- 4. Análisis diferencial ------------------------------#
+dds <- DESeq(dds)
+res <- results(dds)
+
+# Ordenar por significancia
+res <- res[order(res$padj), ]
+
+# Convertir a data frame
+res_df <- as.data.frame(res)
+
+print("Top miRNAs diferenciales:")
+head(res_df)
+
+################################################################################
+# ---------------------- 5. Guardar resultados --------------------------------#
+write.csv(res_df, "resultados_miRNA.csv")
+print("Archivo guardado: resultados_miRNA.csv")
+
+################################################################################
+# ---------------------- 6. Volcano plot --------------------------------------#
+res_df$significant <- ifelse(res_df$padj < 0.05, "Sí", "No")
+
+ggplot(res_df, aes(x = log2FoldChange, y = -log10(padj), color = significant)) +
+  geom_point() +
+  theme_minimal() +
+  labs(title = "Volcano plot miRNA",
+       x = "Log2 Fold Change",
+       y = "-log10(padj)")
+
+################################################################################
+# ---------------------- 7. Heatmap de miRNAs ---------------------------------#
+# Seleccionar top 20
+top_miRNA <- head(rownames(res_df), 20)
+
+# Normalización (VST)
+vsd <- vst(dds, blind = FALSE)
+
+mat <- assay(vsd)[top_miRNA, ]
+
+pheatmap(mat,
+         scale = "row",
+         main = "Top 20 miRNAs diferencialmente expresados")
