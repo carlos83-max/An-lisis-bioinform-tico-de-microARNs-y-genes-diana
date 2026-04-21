@@ -1,4 +1,4 @@
-![Logo UNIR](https://es.wikipedia.org/wiki/Archivo:Logo_UNIR.png)
+![Logo UNIR](https://upload.wikimedia.org/wikipedia/commons/d/df/Logo_UNIR.png)
 
 ![Bioinformatica](https://technofob.com/wp-content/uploads/2015/10/bioinformatics.jpg)
 
@@ -12,4 +12,5 @@ Los miRNAs participan en la regulación de genes implicados en el desarrollo del
 |--|
 | Deivis Martínez|
 | Carlos Pérez|
+| Carlos Ramirez|
 | Freddy Rodríguez|
