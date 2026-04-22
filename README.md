@@ -35,7 +35,6 @@ El flujo de trabajo integra **Biopython** y **R** para el análisis de miRNAs de
 |--|
 | Deivis Martínez|
 | Carlos Pérez|
-| Carlos Ramirez|
 | Freddy Rodríguez|
 
 <div style="text-align: center;">
