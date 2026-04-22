@@ -1,8 +1,22 @@
-![Logo UNIR](https://upload.wikimedia.org/wikipedia/commons/d/df/Logo_UNIR.png)
 
-![Bioinformatica](https://technofob.com/wp-content/uploads/2015/10/bioinformatics.jpg)
+# Análisis bioinformático de microARNs y genes diana
+Este proyecto es desarrollado con la finalidad de analizar el comportamiento de un grupo de miRNA para determinar las dianas usando las bases de datos disponibles.  Para lograrlo seguimos los siguientes pasos:
 
-# Analisis bioinformatico de microARNs y genes diana
+1. Consultamos la base de datos [TargetScan](https://www.targetscan.org/vert_80/) donde encontramos los genes diana que vamos a analizar
+   - Escribimos o pegamos el nombre del miRNA a analizar
+   - Descargamos los resultados en formato `.xlsx` [ver ejemplos en la carpeta](genes_diana/xlsx/)
+   - Pasamos a un archivo de texto el listado de los genes obtenidos por cada uno de los miRNA [ver ejemplos en la carpeta](genes_diana/txt/)
+   - Generamos un diagrama de Venn para obtener los genes diana comunes, con la herramienta de [PSB](https://bioinformatics.psb.ugent.be/webtools/Venn/)
+
+2. Usamos la base de datos [UniProt](https://www.uniprot.org/) para buscar la función biológica de los genes diana comunes
+
+3. Identificamos las rutas de señalización con [GeneCodis](https://genecodis.genyo.es/)
+
+Las imagenes generadas en el proyecto se encuentran en la carpeta [images](images/) de este repositorio.
+
+También encontramos el código fuente desarrollado para este análisis con Python se encuentra en la carpeta [src/Python](src/Python/) y código en R con ejemplos de reducción de dimensionalidad en la carpeta [src/R](src/R/)
+
+
 Los miRNAs participan en la regulación de genes implicados en el desarrollo del cáncer de mama; sin embargo, no siempre se conoce con claridad qué miRNAs alterados y qué genes diana asociados poseen mayor relevancia biológica. Por ello, es necesario integrarlos mediante herramientas bioinformáticas.
 
 # Flujo de Trabajo en Bipython y R para el análisis de miRNA´s
@@ -13,7 +27,9 @@ El flujo de trabajo integra **Biopython** y **R** para el análisis de miRNAs de
 
 
 <br><br>
-###Programación Científica
+
+## Programación Científica
+
 ### Grupo No. 5, Integrantes:
 |Nombre  |
 |--|
@@ -21,3 +37,7 @@ El flujo de trabajo integra **Biopython** y **R** para el análisis de miRNAs de
 | Carlos Pérez|
 | Carlos Ramirez|
 | Freddy Rodríguez|
+
+<div style="text-align: center;">
+<img width="300" height="200" alt="Logo UNIR" src="https://upload.wikimedia.org/wikipedia/commons/d/df/Logo_UNIR.png" />
+</div>
